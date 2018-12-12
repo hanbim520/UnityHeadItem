@@ -248,19 +248,38 @@ public class UIHeadBar : MonoBehaviour {
 
                     if (headBarStruct.textGuildName.isActiveAndEnabled)
                     {
-                        float y = headBarStruct.textName.preferredHeight + 5;
+                        float y = headBarStruct.textName.transform.localPosition.y + headBarStruct.textName.preferredHeight - headBarStruct.textName.rectTransform.rect.height / 2 + headBarStruct.textGuildName.preferredHeight / 2;
                         headBarStruct.textGuildName.transform.localPosition = new Vector3(0,y , 0);
                     }
                     if(headBarStruct.textChengHao.isActiveAndEnabled)
                     {
-                        float y = headBarStruct.textGuildName.preferredHeight + headBarStruct.textName.preferredHeight + 5;
-                        headBarStruct.textChengHao.transform.localPosition = new Vector3(0, y, 0);
+                        if (headBarStruct.textGuildName.isActiveAndEnabled)
+                        {
+                            float y = headBarStruct.textGuildName.transform.localPosition.y + headBarStruct.textGuildName.preferredHeight - headBarStruct.textGuildName.rectTransform.rect.height / 2 + headBarStruct.textChengHao.preferredHeight / 2;
+                            headBarStruct.textChengHao.transform.localPosition = new Vector3(0, y, 0);
+                        }
+                        else
+                        {
+                            float y = headBarStruct.textName.transform.localPosition.y + headBarStruct.textName.preferredHeight - headBarStruct.textName.rectTransform.rect.height / 2 + headBarStruct.textChengHao.preferredHeight / 2;
+                            headBarStruct.textChengHao.transform.localPosition = new Vector3(0, y, 0);
+                        }
+                        
                     }
                     if (headBarStruct.imageChengHao.isActiveAndEnabled)
                     {
-                        float y = headBarStruct.textGuildName.preferredHeight + headBarStruct.textName.preferredHeight + 5;
-                        headBarStruct.imageChengHao.transform.localPosition = new Vector3(0, y, 0);
+                        if(headBarStruct.textGuildName.isActiveAndEnabled)
+                        {
+                            float y = headBarStruct.textGuildName.preferredHeight + headBarStruct.textName.preferredHeight + 5;
+                            headBarStruct.imageChengHao.transform.localPosition = new Vector3(0, y, 0);
+                        }
+                        else
+                        {
+                            float y = headBarStruct.textName.preferredHeight / 2;
+                            headBarStruct.imageChengHao.transform.localPosition = new Vector3(0, y, 0);
+                        }
+                        
                     }
+                   
                     if (headBarStruct.imageTask.isActiveAndEnabled)
                     {
                         float y = 0;
@@ -419,6 +438,8 @@ public class UIHeadBar : MonoBehaviour {
         Vector3 titlePos = m_headBarDic[dbid].titleRelativePos;
         Vector3 namePos = m_headBarDic[dbid].nameRelativePos;
         Vector3 guildPos = m_headBarDic[dbid].guildNameRelativePos;
+        Vector3 chenghaoTxtPos = m_headBarDic[dbid].chengHaoTxtRelativePos;
+        Vector3 chenghaoImgPos = m_headBarDic[dbid].chengHaoImgRelativePos;
         Vector3 progressPos = m_headBarDic[dbid].progressbarRelativePos;
 
         m_headBarDic[dbid].imageTask.transform.position = new Vector3(taskPos.x + postion.x, taskPos.y + postion.y, taskPos.z = postion.z);
@@ -426,7 +447,8 @@ public class UIHeadBar : MonoBehaviour {
         m_headBarDic[dbid].textName.transform.position = new Vector3(namePos.x + postion.x, namePos.y + postion.y, namePos.z = postion.z);
         m_headBarDic[dbid].textGuildName.transform.position = new Vector3(guildPos.x + postion.x, guildPos.y + postion.y, guildPos.z = postion.z);
         m_headBarDic[dbid].progressbar.transform.position = new Vector3(progressPos.x + postion.x, progressPos.y + postion.y, progressPos.z = postion.z);
-
+        m_headBarDic[dbid].textChengHao.transform.position = new Vector3(chenghaoTxtPos.x + postion.x, chenghaoTxtPos.y + postion.y, chenghaoTxtPos.z = postion.z);
+        m_headBarDic[dbid].imageChengHao.transform.position = new Vector3(chenghaoImgPos.x + postion.x, chenghaoImgPos.y + postion.y, chenghaoImgPos.z = postion.z);
 
     }
 

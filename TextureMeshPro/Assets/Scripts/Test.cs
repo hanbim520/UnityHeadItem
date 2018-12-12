@@ -32,8 +32,8 @@ public class Test : MonoBehaviour {
             Player player = pl.GetComponent<Player>();
             players.Add(player);
             player.dbid = i;
-            uiHeadBar.CreateHeadBar((long)i, "张三对的的", "", "", image,UIHeadBar.ShowType.ePlayerPvp);
-            uiHeadBar.SetMonsterTypeProgressBar(i,1,false);
+            uiHeadBar.CreateHeadBar((long)i, "张三对的的", "", "", null,UIHeadBar.ShowType.ePlayerNormal);
+            uiHeadBar.SetChengHao(i,"[费大幅度]");
         }
         //[冒险家]
         //[工会名]
