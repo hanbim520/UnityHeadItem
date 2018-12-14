@@ -225,6 +225,7 @@ public class UIHeadBar : MonoBehaviour {
     //layout
     private void RefreshLayout(long dbid)
     {
+        float y = 0;
         HeadBarStruct headBarStruct = m_headBarDic[dbid];
         switch (_ShowType)
         {
@@ -236,68 +237,35 @@ public class UIHeadBar : MonoBehaviour {
                         headBarStruct.textName.alignment = TextAnchor.MiddleLeft;
 
                         float mus = headBarStruct.textTitle.preferredWidth - headBarStruct.textName.preferredWidth;
-                        headBarStruct.textTitle.transform.localPosition = new Vector3(-headBarStruct.textTitle.rectTransform.sizeDelta.x / 2 + mus / 2, 0, 0);
-                        headBarStruct.textName.transform.localPosition = new Vector3(headBarStruct.textName.rectTransform.sizeDelta.x / 2 + mus / 2, 0, 0);
+                        headBarStruct.textTitle.transform.localPosition = new Vector3(-headBarStruct.textTitle.rectTransform.sizeDelta.x / 2 + mus / 2, y, 0);
+                        headBarStruct.textName.transform.localPosition = new Vector3(headBarStruct.textName.rectTransform.sizeDelta.x / 2 + mus / 2, y, 0);
                     }
                     else
                     {
                         headBarStruct.textName.alignment = TextAnchor.MiddleCenter;
                         headBarStruct.textName.transform.localPosition = Vector3.zero;
                     }
-                  
+                    y += headBarStruct.textName.preferredHeight / 2;
 
                     if (headBarStruct.textGuildName.isActiveAndEnabled)
                     {
-                        float y = headBarStruct.textName.transform.localPosition.y + headBarStruct.textName.preferredHeight - headBarStruct.textName.rectTransform.rect.height / 2 + headBarStruct.textGuildName.preferredHeight / 2;
+                        y += headBarStruct.textGuildName.preferredHeight / 2;
                         headBarStruct.textGuildName.transform.localPosition = new Vector3(0,y , 0);
                     }
                     if(headBarStruct.textChengHao.isActiveAndEnabled)
                     {
-                        if (headBarStruct.textGuildName.isActiveAndEnabled)
-                        {
-                            float y = headBarStruct.textGuildName.transform.localPosition.y + headBarStruct.textGuildName.preferredHeight - headBarStruct.textGuildName.rectTransform.rect.height / 2 + headBarStruct.textChengHao.preferredHeight / 2;
-                            headBarStruct.textChengHao.transform.localPosition = new Vector3(0, y, 0);
-                        }
-                        else
-                        {
-                            float y = headBarStruct.textName.transform.localPosition.y + headBarStruct.textName.preferredHeight - headBarStruct.textName.rectTransform.rect.height / 2 + headBarStruct.textChengHao.preferredHeight / 2;
-                            headBarStruct.textChengHao.transform.localPosition = new Vector3(0, y, 0);
-                        }
-                        
+                        y += headBarStruct.textChengHao.preferredHeight / 2;
+                        headBarStruct.textChengHao.transform.localPosition = new Vector3(0, y, 0);
                     }
                     if (headBarStruct.imageChengHao.isActiveAndEnabled)
                     {
-                        if(headBarStruct.textGuildName.isActiveAndEnabled)
-                        {
-                            float y = headBarStruct.textGuildName.preferredHeight + headBarStruct.textName.preferredHeight + 5;
-                            headBarStruct.imageChengHao.transform.localPosition = new Vector3(0, y, 0);
-                        }
-                        else
-                        {
-                            float y = headBarStruct.textName.preferredHeight / 2;
-                            headBarStruct.imageChengHao.transform.localPosition = new Vector3(0, y, 0);
-                        }
-                        
+                        y += headBarStruct.imageChengHao.preferredHeight / 2;
+                        headBarStruct.imageChengHao.transform.localPosition = new Vector3(0, y, 0);
                     }
                    
                     if (headBarStruct.imageTask.isActiveAndEnabled)
                     {
-                        float y = 0;
-                        if(headBarStruct.imageChengHao.isActiveAndEnabled)
-                        {
-                            y = headBarStruct.imageChengHao.transform.localPosition.y + headBarStruct.imageChengHao.preferredHeight - headBarStruct.imageChengHao.rectTransform.rect.height / 2 + headBarStruct.imageTask.preferredHeight / 2;
-                        }else if (headBarStruct.textChengHao.isActiveAndEnabled)
-                        {
-                            y = headBarStruct.textChengHao.transform.localPosition.y + headBarStruct.textChengHao.preferredHeight - headBarStruct.textChengHao.rectTransform.rect.height / 2 + headBarStruct.imageTask.preferredHeight / 2;
-                        }
-                        else if (headBarStruct.textGuildName.isActiveAndEnabled)
-                        {
-                            y = headBarStruct.textGuildName.transform.localPosition.y + headBarStruct.textGuildName.preferredHeight - headBarStruct.textGuildName.rectTransform.rect.height / 2 + headBarStruct.imageTask.preferredHeight / 2;
-                        }
-                        else
-                        {
-                            y = headBarStruct.textName.transform.localPosition.y + headBarStruct.textName.preferredHeight - headBarStruct.textName.rectTransform.rect.height / 2 + headBarStruct.imageTask.preferredHeight / 2;
-                        }
+                        y += headBarStruct.imageTask.preferredHeight / 2;
                         headBarStruct.imageTask.transform.localPosition = new Vector3(0, y, 0);
                     }
                     break;
@@ -311,7 +279,7 @@ public class UIHeadBar : MonoBehaviour {
                     headBarStruct.progressbar.gameObject.SetActive(true);
 
                     headBarStruct.progressbar.transform.localPosition = new Vector3(0, 0, 0);
-                    float y = headBarStruct.progressbar.GetComponent<Image>().preferredHeight / 2 ;
+                    y += headBarStruct.progressbar.GetComponent<Image>().preferredHeight / 2 ;
                     if( headBarStruct.textTitle.isActiveAndEnabled)
                     {
                         headBarStruct.textTitle.alignment = TextAnchor.MiddleRight;
@@ -324,7 +292,6 @@ public class UIHeadBar : MonoBehaviour {
                         headBarStruct.textName.alignment = TextAnchor.MiddleCenter;
                         headBarStruct.textName.transform.localPosition = new Vector3(0, y, 0);
                     }
-                   
                     break;
                 }
             case ShowType.eMonsterNormal:
@@ -340,23 +307,14 @@ public class UIHeadBar : MonoBehaviour {
                     {
                         headBarStruct.textName.alignment = TextAnchor.MiddleCenter;
                         headBarStruct.progressbar.transform.localPosition = new Vector3(0, 0, 0);
-                        float y = headBarStruct.progressbar.GetComponent<Image>().preferredHeight / 2;
+                        y += headBarStruct.progressbar.GetComponent<Image>().preferredHeight / 2;
                         headBarStruct.textName.transform.localPosition = new Vector3(0, y, 0);
                     }
                   
                     if (headBarStruct.imageTask.isActiveAndEnabled)
                     {
-                        if (headBarStruct.textName.isActiveAndEnabled)
-                        {
-                            float y = headBarStruct.textName.transform.localPosition.y + headBarStruct.textName.preferredHeight - headBarStruct.textName.rectTransform.rect.height / 2 + headBarStruct.imageTask.preferredHeight / 2;
-                            headBarStruct.imageTask.transform.localPosition = new Vector3(0, y, 0);
-                        }
-                        else
-                        {
-                            float y = headBarStruct.progressbar.GetComponent<Image>().preferredHeight / 2 + headBarStruct.imageTask.preferredHeight / 2;
-                            headBarStruct.imageTask.transform.localPosition = new Vector3(0, y, 0);
-                        }
-                           
+                        y += headBarStruct.imageTask.preferredHeight / 2;
+                        headBarStruct.imageTask.transform.localPosition = new Vector3(0, y, 0);
                     }
                     break;
                 }
